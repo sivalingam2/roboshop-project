@@ -13,4 +13,4 @@ yum install mongodb-org-shell -y
 mongo --host mangodb.sivadevops22.online </app/schema/catalogue.js
 systemctl daemon-reload
 systemctl enable catalogue
-systemctl start catalogue
+systemctl restart catalogue
