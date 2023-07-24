@@ -1,3 +1,4 @@
+
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 cp catalogue.repo /etc/systemd/system/catalogue.service
 cp mango.repo /etc/yum.repos.d/mongo.repo
