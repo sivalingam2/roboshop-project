@@ -1,6 +1,6 @@
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 cp user.repo /etc/systemd/system/user.service
 cp mango.repo /etc/yum.repos.d/mongo.repo
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 yum install nodejs -y
 useradd roboshop
 mkdir /app
