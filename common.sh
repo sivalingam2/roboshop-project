@@ -68,7 +68,8 @@ func_go() {
   yum install golang -y &>>${log}
   func_apppreq
  echo  -e "\e[32m>>>>> download the dependencies & build the software <<<<<\e[0m"
-  go mod init dispatch &>>${log}
+  go mod init ${component}  &>>${log}
+
   go get &>>${log}
   go build &>>${log}
   func_start
