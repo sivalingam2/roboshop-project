@@ -1,7 +1,5 @@
 log=/tmp/roboshop-log
 greet() {
-echo  -e "\e[32m>>>>> ${component} service <<<<<\e[0m"
-cp ${component}.repo /etc/systemd/system/${component}.service &>>${log}
 echo  -e "\e[32m>>>>> mango repo file <<<<<\e[0m"
 cp mango.repo /etc/yum.repos.d/mongo.repo &>> ${log}
 echo  -e "\e[32m>>>>> setup nodejs <<<<<\e[0m"
@@ -23,13 +21,13 @@ func_start
 }
 func_java() {
   echo  -e "\e[32m>>>>> install maven <<<<<\e[0m"
-  yum install maven -y
+  yum install maven -y ${log}
   echo  -e "\e[32m>>>>> ${component} service <<<<<\e[0m"
-  cp ${component}.repo /etc/systemd/system/${component}.service
+  cp ${component}.repo /etc/systemd/system/${component}.service ${log}
 
  func_apppreq
  echo  -e "\e[32m>>>>>  build${component} service <<<<<\e[0m"
-  mvn clean package
+  mvn clean package ${log}
   mv target/${component}-1.0.jar ${component}.jar &>> ${log}
   echo  -e "\e[32m>>>>>  install mysql client <<<<<\e[0m"
   yum install mysql -y &>> ${log}
@@ -39,6 +37,8 @@ func_java() {
   func_start
 }
 func_apppreq(){
+  echo  -e "\e[32m>>>>> ${component} service <<<<<\e[0m"
+  cp ${component}.repo /etc/systemd/system/${component}.service &>>${log}
   echo  -e "\e[32m>>>>> application user <<<<<\e[0m"
   useradd roboshop &>>${log}
   echo  -e "\e[32m>>>>> clean old content <<<<<\e[0m"
@@ -56,4 +56,12 @@ func_start() {
   systemctl daemon-reload &>>${log}
   systemctl enable ${component} &>>${log}
   systemctl restart ${component} &>>${log}
+}
+func_python() {
+  echo  -e "\e[32m>>>>>  build${component} service <<<<<\e[0m"
+  yum install python36 gcc python3-devel -y &>>${log}
+func_apppreq
+  echo  -e "\e[32m>>>>>  build${component} service <<<<<\e[0m"
+  pip3.6 install -r requirements.txt &>>${log}
+ func_start
 }
