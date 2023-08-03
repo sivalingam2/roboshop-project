@@ -1,3 +1,4 @@
 component=user
 source common.sh
-nodejs
+
+greet

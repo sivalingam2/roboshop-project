@@ -1,4 +1,4 @@
-nodejs() {
+greet() {
 log=/tmp/roboshop-log
 echo  -e "\e[32m>>>>> ${component} service <<<<<\e[0m"
 cp ${component}.repo /etc/systemd/system/${component}.service &>>${log}
