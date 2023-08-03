@@ -17,7 +17,7 @@ mkdir /app &>>${log}
 echo  -e "\e[32m>>>>> download application <<<<<\e[0m"
 curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>> ${log}
 cd /app &>> ${log}
-unzip /tmp/catalogue.zip &>>${log}
+unzip /tmp/${component}.zip &>>${log}
 echo  -e "\e[32m>>>>> download dependencies <<<<<\e[0m"
 cd /app &>>${log}
 npm install &>>${log}
