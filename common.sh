@@ -21,13 +21,11 @@ func_start
 }
 func_java() {
   echo  -e "\e[32m>>>>> install maven <<<<<\e[0m"
-  yum install maven -y ${log}
-  echo  -e "\e[32m>>>>> ${component} service <<<<<\e[0m"
-  cp ${component}.repo /etc/systemd/system/${component}.service ${log}
+  yum install maven -y &>>${log}
 
  func_apppreq
  echo  -e "\e[32m>>>>>  build${component} service <<<<<\e[0m"
-  mvn clean package ${log}
+  mvn clean package &>> ${log}
   mv target/${component}-1.0.jar ${component}.jar &>> ${log}
   echo  -e "\e[32m>>>>>  install mysql client <<<<<\e[0m"
   yum install mysql -y &>> ${log}
