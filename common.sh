@@ -63,3 +63,13 @@ func_apppreq
   pip3.6 install -r requirements.txt &>>${log}
  func_start
 }
+func_go() {
+  echo  -e "\e[32m>>>>> install golang <<<<<\e[0m"
+  yum install golang -y &>>${log}
+  func_apppreq
+ echo  -e "\e[32m>>>>> download the dependencies & build the software <<<<<\e[0m"
+  go mod init dispatch &>>${log}
+  go get &>>${log}
+  go build &>>${log}
+  func_start
+}
