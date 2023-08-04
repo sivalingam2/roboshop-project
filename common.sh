@@ -29,7 +29,7 @@ func_java() {
   mv target/${component}-1.0.jar ${component}.jar &>> ${log}
   echo  -e "\e[32m>>>>>  install mysql client <<<<<\e[0m"
   yum install mysql -y &>> ${log}
-  echo  -e "\e[32m>>>>>  load schema servive <<<<<\e[0m"
+  echo  -e "\e[32m>>>>>  load schema service <<<<<\e[0m"
   mysql -h mysql.sivadevops22.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>> ${log}
 
   func_start
@@ -58,9 +58,12 @@ func_start() {
 func_python() {
   echo  -e "\e[32m>>>>>  build${component} service <<<<<\e[0m"
   yum install python36 gcc python3-devel -y &>>${log}
+
 func_apppreq
+
   echo  -e "\e[32m>>>>>  build${component} service <<<<<\e[0m"
   pip3.6 install -r requirements.txt &>>${log}
+
  func_start
 }
 func_go() {
