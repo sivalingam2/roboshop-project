@@ -2,15 +2,19 @@ log=/tmp/roboshop-log
 greet() {
 echo  -e "\e[32m>>>>> mango repo file <<<<<\e[0m"
 cp mango.repo /etc/yum.repos.d/mongo.repo &>> ${log}
+echo $?
 echo  -e "\e[32m>>>>> setup nodejs <<<<<\e[0m"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log}
+echo $?
 echo  -e "\e[32m>>>>> install nodejs <<<<<\e[0m"
 yum install nodejs -y &>>${log}
+echo $?
 
  func_apppreq
 
 echo  -e "\e[32m>>>>> download dependencies <<<<<\e[0m"
 npm install &>>${log}
+echo $?
 func_schema_setup
 
 func_start
@@ -19,11 +23,13 @@ func_start
 func_java() {
   echo  -e "\e[32m>>>>> install maven <<<<<\e[0m"
   yum install maven -y &>>${log}
+  echo $?
 
  func_apppreq
  echo  -e "\e[32m>>>>>  build${component} service <<<<<\e[0m"
   mvn clean package &>> ${log}
   mv target/${component}-1.0.jar ${component}.jar &>> ${log}
+  echo $?
 
   func_schema_setup
 
@@ -32,8 +38,10 @@ func_java() {
 func_apppreq(){
   echo  -e "\e[32m>>>>> ${component} service <<<<<\e[0m"
   cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
+  echo $?
   echo  -e "\e[32m>>>>> application user <<<<<\e[0m"
   useradd roboshop &>>${log}
+  echo $?
   echo  -e "\e[32m>>>>> clean old content <<<<<\e[0m"
   rm -rf /app &>>${log}
   echo  -e "\e[32m>>>>> download application <<<<<\e[0m"
