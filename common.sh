@@ -36,7 +36,7 @@ func_java() {
 }
 func_apppreq(){
   echo  -e "\e[32m>>>>> ${component} service <<<<<\e[0m"
-  cp ${component}.repo /etc/systemd/system/${component}.service &>>${log}
+  cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
   echo  -e "\e[32m>>>>> application user <<<<<\e[0m"
   useradd roboshop &>>${log}
   echo  -e "\e[32m>>>>> clean old content <<<<<\e[0m"
