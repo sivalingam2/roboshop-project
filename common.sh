@@ -11,10 +11,7 @@ yum install nodejs -y &>>${log}
 
 echo  -e "\e[32m>>>>> download dependencies <<<<<\e[0m"
 npm install &>>${log}
-echo  -e "\e[32m>>>>> install mangodb <<<<<\e[0m"
-yum install mongodb-org-shell -y &>> ${log}
-echo  -e "\e[32m>>>>> load schema mangodb <<<<<\e[0m"
-mongo --host mangodb.sivadevops22.online </app/schema/${component}.js &>>${log}
+func_schema_setup
 
 func_start
 
@@ -27,10 +24,8 @@ func_java() {
  echo  -e "\e[32m>>>>>  build${component} service <<<<<\e[0m"
   mvn clean package &>> ${log}
   mv target/${component}-1.0.jar ${component}.jar &>> ${log}
-  echo  -e "\e[32m>>>>>  install mysql client <<<<<\e[0m"
-  yum install mysql -y &>> ${log}
-  echo  -e "\e[32m>>>>>  load schema service <<<<<\e[0m"
-  mysql -h mysql.sivadevops22.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>> ${log}
+
+  func_schema_setup
 
   func_start
 }
@@ -77,3 +72,19 @@ func_go() {
   go build &>>${log}
   func_start
 }
+func_schema_setup() {
+  if [ "${schema_type}" == "mangodb" ]; then
+    echo  -e "\e[32m>>>>> install mangodb <<<<<\e[0m"
+    yum install mongodb-org-shell -y &>> ${log}
+    echo  -e "\e[32m>>>>> load schema mangodb <<<<<\e[0m"
+    mongo --host mangodb.sivadevops22.online </app/schema/${component}.js &>>${log}
+  fi
+
+   if [ "${schema_type}" == "mysql" ]; then
+      echo  -e "\e[32m>>>>>  install mysql client <<<<<\e[0m"
+      yum install mysql -y &>> ${log}
+      echo  -e "\e[32m>>>>>  load schema service <<<<<\e[0m"
+      mysql -h mysql.sivadevops22.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>> ${log}
+  fi
+}
+
