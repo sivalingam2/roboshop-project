@@ -8,6 +8,7 @@ curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log}
 exit_status
 echo  -e "\e[32m>>>>> install nodejs <<<<<\e[0m"
 yum install nodejs -y &>>${log}
+
 exit_status
 
  func_apppreq
@@ -40,9 +41,9 @@ func_apppreq(){
   cp ${component}.service /etc/systemd/system/${component}.service &>>${log}
   exit_status
   id roboshop &>>${log}
-  if [ $? -ne 0] ; then
-  echo  -e "\e[32m>>>>> application user <<<<<\e[0m"
-  useradd roboshop &>>${log}
+  if [ $? -ne 0 ]; then
+     echo  -e "\e[32m>>>>> application user <<<<<\e[0m"
+     useradd roboshop &>>${log}
   fi
   exit_status
   echo  -e "\e[32m>>>>> clean old content <<<<<\e[0m"
