@@ -96,7 +96,7 @@ func_schema_setup() {
     echo  -e "\e[32m>>>>> install mangodb <<<<<\e[0m"
     yum install mongodb-org-shell -y &>> ${log}
     echo  -e "\e[32m>>>>> load schema mangodb <<<<<\e[0m"
-    mongo --host mangodb.sivadevops22.online </app/schema/${component}.js &>>${log}
+    mongo --host mongodb.sivadevops22.online </app/schema/${component}.js &>>${log}
   fi
 
    if [ "${schema_type}" == "mysql" ]; then
