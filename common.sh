@@ -1,7 +1,7 @@
 log=/tmp/roboshop-log
 greet() {
 echo  -e "\e[32m>>>>> mango repo file <<<<<\e[0m"
-cp mango.repo /etc/yum.repos.d/mongo.repo &>> ${log}
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>> ${log}
 exit_status
 echo  -e "\e[32m>>>>> setup nodejs <<<<<\e[0m"
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log}
